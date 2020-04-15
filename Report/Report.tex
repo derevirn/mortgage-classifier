@@ -1,0 +1,660 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=1\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Predicting Mortgage Approvals From Government Data}
+   \author{Ioannis Tolios}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Executive Summary}\label{executive-summary}
+
+In this report I am going to present my analysis of the HMDA mortgage
+application dataset, as well as the machine learning model I created for
+the aforementioned data. The dataset includes information about 500000
+mortage applications. After doing basic exploratory analysis,
+visualization, as well as some data cleaning and processing, I managed
+to identify the most essential features of the dataset, i.e. those that
+provided the largest amount of information about the separation of the
+two label classes (mortgage accepted/rejected). Those features were
+subsequentely used for the creation of a binary classifier capable of
+predicting whether an application will be accepted or not, with an
+accuracy of 72\%. The most important features of the dataset are the
+following:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{lender} - A categorical with no ordering indicating which of the
+  lenders was the authority in approving or denying this loan
+\item
+  \emph{loan\_amount} - Size of the requested loan in thousands of
+  dollars
+\item
+  \emph{msa\_md} - A categorical with no ordering indicating
+  Metropolitan Statistical Area/Metropolitan Division
+\item
+  \emph{state\_code} - A categorical with no ordering indicating the
+  U.S. state
+\item
+  \emph{applicant\_income} - In thousands of dollars
+\item
+  \emph{number\_of\_owner-occupied\_units} - Number of dwellings,
+  including individual condominiums, that are lived in by the owner
+\item
+  \emph{minority\_population} - Number of people that belong in a
+  minority group, a new feature that was created for the purposes of
+  this analysis
+\item
+  \emph{tract\_family\_income} - The tract median family income in
+  dollars, another feature that was created for the purposes of this
+  analysis
+\end{itemize}
+
+\pagebreak
+
+    \section{Exploratory Data Analysis}\label{exploratory-data-analysis}
+
+First of all, we are going to examine the total number of non-null
+values for each feature.
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} row\_id                            500000
+         loan\_type                         500000
+         property\_type                     500000
+         loan\_purpose                      500000
+         occupancy                         500000
+         loan\_amount                       500000
+         preapproval                       500000
+         msa\_md                            500000
+         state\_code                        500000
+         county\_code                       500000
+         applicant\_ethnicity               500000
+         applicant\_race                    500000
+         applicant\_sex                     500000
+         applicant\_income                  460052
+         population                        477535
+         minority\_population\_pct           477534
+         ffiecmedian\_family\_income         477560
+         tract\_to\_msa\_md\_income\_pct        477486
+         number\_of\_owner-occupied\_units    477435
+         number\_of\_1\_to\_4\_family\_units     477470
+         lender                            500000
+         co\_applicant                      500000
+         row\_id                            500000
+         accepted                          500000
+         dtype: int64
+\end{Verbatim}
+            
+    As we can see, some of the features have a fair number of missing
+values. Furthermore, we can read on the dataset description that some
+categorical features include categories that correspond to missing
+values, e.g. the -1 category of \emph{msa\_md} column indicates a
+missing value. We are going to remove those, so we have a clearer view
+of our dataset. 
+
+\pagebreak
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} loan\_type                         500000
+         property\_type                     500000
+         loan\_purpose                      500000
+         occupancy                         497811
+         loan\_amount                       500000
+         preapproval                        88891
+         msa\_md                            423018
+         state\_code                        480868
+         county\_code                       479534
+         applicant\_ethnicity               436883
+         applicant\_race                    434460
+         applicant\_sex                     458682
+         applicant\_income                  460052
+         population                        477535
+         minority\_population\_pct           477534
+         ffiecmedian\_family\_income         477560
+         tract\_to\_msa\_md\_income\_pct        477486
+         number\_of\_owner-occupied\_units    477435
+         number\_of\_1\_to\_4\_family\_units     477470
+         lender                            500000
+         co\_applicant                      500000
+         accepted                          500000
+         dtype: int64
+\end{Verbatim}
+            
+    After removing the aforementioned categories, we see that certain
+features have significantly fewer values. This has to be dealt with
+before we create the binary classifier, as machine learning models can't
+accept null values on a dataset. There are various ways of dealing with this problem,
+such as imputing missing values with the mean/median of the feature,
+or more advanced methods like the K-Nearest Neighbors algorithm.
+One feature (\emph{preapproval}) will be dropped, because
+it has a very large number of missing values.
+
+ \pagebreak
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 1    0.500228
+         0    0.499772
+         Name: accepted, dtype: float64
+\end{Verbatim}
+            
+    The classes of our dataset are almost perfectly balanced. This is
+helpful, as it simplifies the creation of the machine learning model. 
+Most classifiers perform better, and have a higher accuracy when the classes are balanced.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Skewness of numerical columns:
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} loan\_amount                       76.552786
+         applicant\_income                  22.277181
+         population                         2.864237
+         minority\_population\_pct            1.009139
+         ffiecmedian\_family\_income          0.773280
+         tract\_to\_msa\_md\_income\_pct        -1.963872
+         number\_of\_owner-occupied\_units     1.881743
+         number\_of\_1\_to\_4\_family\_units      2.016264
+         dtype: float64
+\end{Verbatim}
+            
+    As we can see on the histograms, as well as the list of skewness values,
+a few of the numerical features, especially \emph{loan\_amount} and
+\emph{applicant\_income} are highly skewed. We are going to fix that by
+applying the logarithmic function on them, as it is helpful to have
+features with low skewness and a distribution that is close to normal.
+This will enable us to create more meaningful visualizations, as well as
+a better machine learning model.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Skewness of numerical columns after applying log function:
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} loan\_amount                      -1.190548
+         applicant\_income                  0.026275
+         population                        2.864237
+         minority\_population\_pct           1.009139
+         ffiecmedian\_family\_income         0.773280
+         tract\_to\_msa\_md\_income\_pct       -1.963872
+         number\_of\_owner-occupied\_units   -1.076900
+         number\_of\_1\_to\_4\_family\_units    -1.568488
+         dtype: float64
+\end{Verbatim}
+            
+    We can see that after applying the logarithmic function, the numerical
+features are significantly less skewed, and their distribution is closer
+to normal as expected.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Next, we're going to examine the KDE plots of the numerical features. I
+created different plots for each class of the label, so we can visually
+determine which features provide more information about the separation
+of those classes. As we can see \emph{loan\_amount},
+\emph{applicant\_income}, \emph{minority\_population\_pct} and
+\emph{ffiecmedian\_family\_income} are the most important numerical
+features, and will be used for the creation of the binary classifier.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We are now going to visually examine class separation on the categorical
+features. I divided those features in two groups, depending on the
+number of categories, i.e. low and high cardinality. Ι decided to do
+this for a number of reasons, including the fact that features with low
+cardinality can be visualized using bar plots, while this isn't
+appropriate for those with high cardinality. As we can see, most of the
+low-cardinality features provide information about class separation,
+except for \emph{occupancy}. It must be noted that there are some
+evident signs of discrimination, specifically based on sex and race. The
+mortgage applications of white citizens had a higher approval rate
+compared to african americans. Furthermore, women had a lower approval
+rate compared to men. Making inferences and trying to identify any
+causes for those differences, is beyond the scope of this analysis.
+Regardless of that, using data that is influenced by prejudice and
+discrimination, raises ethical concerns that will be examined later in
+further detail.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For the high-cardinality categorical features, I decided to use KDE
+plots. We can see that \emph{lender} and \emph{state\_code} provide
+adequate information about the separation of the target classes.	
+\pagebreak
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    I decided to create two new features, i.e. \emph{minority\_population}
+and \emph{tract\_family\_income}. The first feature is the product of
+\emph{minority\_population\_pct} and \emph{population}, and contains the
+actual number of people that belong in a minority group. The second is
+the product of \emph{tract\_to\_msa\_md\_income\_pct} and
+\emph{ffiecmedian\_family\_income}, and contains the tract median family
+income in dollars. It is evident from the KDE plots of those new
+features, that they both provide useful information about class
+separation, so they will be used in the binary classifier.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The correlation heatmap helps us visually identify any features that are
+highly correlated. Including those in the binary classifier is
+redundant, because the information they provide is highly overlapping.
+We can see that the
+new features we created earlier, are highly correlated with those that
+comprise them. This is fairly self-evident and reasonable, so I decided
+to drop the original features. There is a number of other features that
+are highly correlated as well, but those had already been dismissed because
+they wouldn't contribute useful information for the training of the binary 
+classifier.
+
+    \pagebreak
+
+    \section{Machine Learning Modelling}\label{machine-learning-modelling}
+
+For the creation of the binary classifier, I experimented with various
+algorithms and techniques. First of all I tested the accuracy of some
+typical classification algorithms, such as Logistic Regression,
+K-Nearest Neighbors and Support Vector Machines. The accuracy I got with
+them was below 70\%, and that was unacceptable. I also tried more
+sophisticated algorithms and machine learning libraries, like LightGBM
+and Keras/Tensorflow. Eventually, I got the highest accuracy (about
+72.5\%) with the XGBoost library. I used the XGBoost Classifier for the
+machine learning model, as well as various functions of the scikit-learn library
+for data preprocessing, metrics, and model selection. First of all, I
+created a \emph{prepare\_data} function that dealt with missing values
+by imputing them with the median/mode value of each feature, depending
+on whether it was a numerical or categorical one. It also applied the
+logarithmic function to the skewed numerical features, as mentioned
+earlier. Afterwards, I applied one-hot encoding to the categorical
+features, as it is typical in machine learning. I ran into a problem
+though, as the encoded high-cardinality features resulted in the
+dramatic increase of the dataset size. This was normal, as thousands of
+features were added to it, but led to memory problems and increased the
+time needed to train the machine learning models. After doing some
+research, I decided to apply target encoding to the high-cardinality
+features, instead of one-hot encoding, and that solved the problem. After that, I
+used the StandardScaler class of scikit-learn to scale my dataset, as
+well as the RandomizedSearchCV class to do a combination of
+cross-validation and parameter tuning. RandomizedSearchCV tests a sample
+of hyperparameter combinations for a given estimator, and helps us
+choose the best one.
+
+    \begin{verbatim}
+Best estimator:
+XGBClassifier(base_score=0.5, booster='gbtree', colsample_bylevel=1,
+   colsample_bytree=0.6, gamma=0, learning_rate=0.02, max_delta_step=0,
+   max_depth=8, min_child_weight=8, missing=None, n_estimators=600,
+   n_jobs=1, nthread=None, objective='binary:logistic', random_state=0,
+   reg_alpha=0.2, reg_lambda=1, scale_pos_weight=1, seed=None,
+   silent=True, subsample=0.7)
+
+\end{verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The accuracy is: 0.7282733333333333
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.75      0.68      0.71     74876
+           1       0.71      0.78      0.74     75124
+
+   micro avg       0.73      0.73      0.73    150000
+   macro avg       0.73      0.73      0.73    150000
+weighted avg       0.73      0.73      0.73    150000
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Report_files/Report_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+RandomizedSearchCV helped us find the best hyperparameter
+combination, which was then evaluated using various metrics.
+As we can see from the classification report, as well as the confusion
+matrix, the classifier is fairly accurate, but outputs a number of false
+positive and false negative values as well.
+
+    \section{Ethical Concerns And
+Conclusion}\label{ethical-concerns-and-conclusion}
+
+The accuracy of our binary classifier is satisfactory. It could either
+be improved by adding more useful features in the dataset, or by
+exploring the performance of other algorithms and techniques. As it was
+mentioned before though, our data analysis highlighted the
+discrimination against specific groups of people in the approval of
+mortgages, i.e. based on race, nationality and sex. Including that
+information in a real-world data science project, would possibly
+reinforce and exacerbate that problem. I would personally be reluctant
+to do it, as it is ethically questionable. Of course in a business
+environment, making such decisions might not be my responsibility, so I would discuss
+that concern with a manager, or the head of my department. Regardless, our
+goal in this project was simply to maximize the accuracy of a
+classifier that would not be deployed to production, so all of the relevant
+features were included in the machine learning model.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
