@@ -1,2 +1,2 @@
-# mortgage-classifier
-A binary classifier for mortgage approvals, based on XGBoost.
+# Mortgage approval binary classifier
+A binary classifier for mortgage loan approvals, based on XGBoost. I started this project to participate in the data science competition of the (now defunct) Microsoft Professional Program. My model managed to rank in the 90th percentile of all participants. The Jupyter notebooks include exploratory data analysis, a deep learning Keras model, as well as the XGBoost model. A report is also available in PDF format. 
